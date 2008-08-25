@@ -31,6 +31,7 @@ WEB_ROOT =
     support
     userguide
     version9
+    newtables
 WEB_PAGES = $*(WEB_ROOT).html
 WEB_SOURCE = $*(WEB_ROOT).txt
 
@@ -76,7 +77,7 @@ DOCS =
 
 # AsciiDoc options to generate documentation HTML.
 ASCIIDOC_HTML =
-    asciidoc --unsafe -b xhtml11 -f $(LAYOUT).conf -a icons -a badges -a revision=$(VERS)@ -a date="$(DATE)@"
+    python ../../asciidoc.py --unsafe -b xhtml11 -f $(LAYOUT).conf -a icons -a badges -a revision=$(VERS)@ -a date="$(DATE)@"
 @if LAYOUT == 'layout2':
     ASCIIDOC_HTML += -a quirks!
 

@@ -30,9 +30,9 @@ syn match asciidocRuler /^'\{4,}$/
 syn region asciidocLiteralParagraph start=/^\n[ \t]\+\(\([^-*. \t] \)\|\(\S\S\)\)/ end=/\(^+\?\s*$\)\@=/
 syn match asciidocListBullet /^\s*[-*+]\s/
 syn match asciidocListNumber /^\s*\(\(\d\+\.\)\|\.\{1,2}\|\(\l\.\)\)\s\+/
-syn match asciidocURL /\\\@<!\<\(http\|https\|ftp\|file\):\/\/\S*\(\w\|\/\)/
+syn match asciidocURL /\\\@<!\<\(http\|https\|ftp\|file\):\/\/[^| \t]*\(\w\|\/\)/
 syn match asciidocEmail /\\\@<!\(\<\|<\)\w\(\w\|[.-]\)*@\(\w\|[.-]\)*\w>\?[0-9A-Za-z_.]\@!/
-syn match asciidocAttributeRef /\\\@<!{\(\w\|-\)\+}/
+syn match asciidocAttributeRef /\\\@<!{\w\(\w\|-\)*\([=!@#$%?:].*\)\?}/
 syn match asciidocAdmonition /^\u\{3,15}:\(\s\+.*\)\@=/
 syn region asciidocAttributeEntry start=/^:\w/ end=/:\(\s\|$\)/ oneline
 
@@ -40,15 +40,15 @@ syn region asciidocAttributeEntry start=/^:\w/ end=/:\(\s\|$\)/ oneline
 " line (see 'Limitations' above).
 syn match asciidocQuotedSubscript /\\\@<!\~\S\_.\{-}\(\~\|\n\s*\n\)/
 syn match asciidocQuotedSuperscript /\\\@<!\^\S\_.\{-}\(\^\|\n\s*\n\)/
-syn match asciidocQuotedMonospaced /\(^\|[ \t([.,=]\)\@<=+\([ )\n]\)\@!\_.\{-}\S\(+\([ \t)[\],.?!;:=]\|$\)\@=\|\n\s*\n\)/
-syn match asciidocQuotedMonospaced2 /\(^\|[ \t([.,=]\)\@<=`\([ )\n]\)\@!\_.\{-}\S\(`\([ \t)[\],.?!;:=]\|$\)\@=\|\n\s*\n\)/
+syn match asciidocQuotedMonospaced /\(^\|[| \t([.,=]\)\@<=+\([ )\n]\)\@!\_.\{-}\S\(+\([| \t)[\],.?!;:=]\|$\)\@=\|\n\s*\n\)/
+syn match asciidocQuotedMonospaced2 /\(^\|[| \t([.,=]\)\@<=`\([ )\n]\)\@!\_.\{-}\S\(`\([| \t)[\],.?!;:=]\|$\)\@=\|\n\s*\n\)/
 syn match asciidocQuotedUnconstrainedMonospaced /\\\@<!++\S\_.\{-}\(++\|\n\s*\n\)/
-syn match asciidocQuotedEmphasized /\(^\|[ \t([.,=]\)\@<=_\([ )\n]\)\@!\_.\{-}\S\(_\([ \t)[\],.?!;:=]\|$\)\@=\|\n\s*\n\)/
-syn match asciidocQuotedEmphasized2 /\(^\|[ \t([.,=]\)\@<='\([ )\n]\)\@!\_.\{-}\S\('\([ \t)[\],.?!;:=]\|$\)\@=\|\n\s*\n\)/
+syn match asciidocQuotedEmphasized /\(^\|[| \t([.,=]\)\@<=_\([ )\n]\)\@!\_.\{-}\S\(_\([| \t)[\],.?!;:=]\|$\)\@=\|\n\s*\n\)/
+syn match asciidocQuotedEmphasized2 /\(^\|[| \t([.,=]\)\@<='\([ )\n]\)\@!\_.\{-}\S\('\([| \t)[\],.?!;:=]\|$\)\@=\|\n\s*\n\)/
 syn match asciidocQuotedUnconstrainedEmphasized /\\\@<!__\S\_.\{-}\(__\|\n\s*\n\)/
-syn match asciidocQuotedBold /\(^\|[ \t([.,=]\)\@<=\*\([ )\n]\)\@!\_.\{-}\S\(\*\([ \t)[\],.?!;:=]\|$\)\@=\|\n\s*\n\)/
+syn match asciidocQuotedBold /\(^\|[| \t([.,=]\)\@<=\*\([ )\n]\)\@!\_.\{-}\S\(\*\([| \t)[\],.?!;:=]\|$\)\@=\|\n\s*\n\)/
 syn match asciidocQuotedUnconstrainedBold /\\\@<!\*\*\S\_.\{-}\(\*\*\|\n\s*\n\)/
-syn match asciidocQuotedQuoted /\(^\|[ \t([.,=]\)\@<=``\([ )\n]\)\@!\_.\{-}\S\(''\([ \t)[\],.?!;:=]\|$\)\@=\|\n\s*\n\)/
+syn match asciidocQuotedQuoted /\(^\|[| \t([.,=]\)\@<=``\([ )\n]\)\@!\_.\{-}\S\(''\([| \t)[\],.?!;:=]\|$\)\@=\|\n\s*\n\)/
 
 syn match asciidocDoubleDollarPassthrough /\\\@<!\(^\|[^0-9a-zA-Z$]\)\@<=\$\$..\{-}\(\$\$\([^0-9a-zA-Z$]\|$\)\@=\|^$\)/
 syn match asciidocTriplePlusPassthrough /\\\@<!\(^\|[^0-9a-zA-Z$]\)\@<=+++..\{-}\(+++\([^0-9a-zA-Z$]\|$\)\@=\|^$\)/
@@ -56,7 +56,7 @@ syn match asciidocTriplePlusPassthrough /\\\@<!\(^\|[^0-9a-zA-Z$]\)\@<=+++..\{-}
 syn region asciidocVLabel start=/^\s*/ end=/\(::\|;;\|:-\|??\)$/ oneline contains=asciidocQuoted.* keepend
 syn region asciidocHLabel start=/^\s*/ end=/\(::\|;;\)\(\s\+\|\\$\)/ oneline contains=asciidocQuoted.* keepend
 
-syn region asciidocTable start=/^\([`.']\d*[-~_]*\)\+[-~_]\+\d*$/ end=/^$/
+syn region asciidocTable_OLD start=/^\([`.']\d*[-~_]*\)\+[-~_]\+\d*$/ end=/^$/
 syn match asciidocBlockTitle /^\.[^. \t].*[^-~_]$/ contains=asciidocQuoted.*,asciidocAttributeRef
 syn match asciidocOneLineTitle /^=\{1,5}\s\+\S.*$/ contains=asciidocQuoted.*,asciidocAttributeRef
 
@@ -67,6 +67,12 @@ syn match asciidocAttributeList /^\[[^[ \t].*\]$/
 syn match asciidocQuoteBlockDelimiter /^_\{4,}$/
 syn match asciidocExampleBlockDelimiter /^=\{4,}$/
 syn match asciidocSidebarDelimiter /^*\{4,}$/
+
+"See http://vimdoc.sourceforge.net/htmldoc/usr_44.html for excluding region
+"contents from highlighting.
+syn match asciidocTablePrefix /\(\d\+\*\)\?|/ containedin=asciidocTableBlock contained
+syn region asciidocTableBlock matchgroup=asciidocTableDelimiter start=/^|=\{3,}$/ end=/^|=\{3,}$/ keepend contains=ALL
+
 syn match asciidocListContinuation /^+$/
 syn region asciidocLiteralBlock start=/^\.\{4,}$/ end=/^\.\{4,}$/ contains=asciidocCallout keepend
 syn region asciidocListingBlock start=/^-\{4,}$/ end=/^-\{4,}$/ contains=asciidocCallout keepend
@@ -104,7 +110,10 @@ highlight link asciidocListBullet Label
 highlight link asciidocListNumber Label
 highlight link asciidocVLabel Label
 highlight link asciidocHLabel Label
-highlight link asciidocTable Type
+highlight link asciidocTable_OLD Type
+highlight link asciidocTableDelimiter Label
+highlight link asciidocTableBlock NONE
+highlight link asciidocTablePrefix Label
 highlight link asciidocListBlockDelimiter Label
 highlight link asciidocListContinuation Label
 highlight link asciidocLiteralParagraph Identifier
