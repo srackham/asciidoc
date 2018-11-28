@@ -1,0 +1,11 @@
+This the AsciiDoc the legacy hg repository archive at [Google
+Code](https://code.google.com/archive/p/asciidoc/) exported to Git.
+
+In 2013, after over 10 years of AsciiDoc development, I retired from
+the project in order to spend more time on other things.
+
+This repo is frozen at my final commit on 27-Nov-2013 with the
+addition of the NOTE.txt file.
+
+
+Stuart Rackham, 28-Nov-2018
